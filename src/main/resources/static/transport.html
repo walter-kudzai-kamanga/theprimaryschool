@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fleet/Transport | Kamanga Primary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard.html">Kamanga Primary</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="students.html">Students</a></li>
+          <li class="nav-item"><a class="nav-link" href="staff.html">Staff & HR</a></li>
+          <li class="nav-item"><a class="nav-link" href="attendance.html">Attendance</a></li>
+          <li class="nav-item"><a class="nav-link" href="lessons.html">Lessons</a></li>
+          <li class="nav-item"><a class="nav-link" href="tests.html">Tests</a></li>
+          <li class="nav-item"><a class="nav-link" href="homework.html">Homework</a></li>
+          <li class="nav-item"><a class="nav-link" href="finance.html">Finance</a></li>
+          <li class="nav-item"><a class="nav-link" href="inventory.html">Inventory</a></li>
+          <li class="nav-item"><a class="nav-link" href="transport.html">Transport</a></li>
+          <li class="nav-item"><a class="nav-link" href="alerts.html">Alerts</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <h2 class="mb-4">Fleet/Transport</h2>
+    <!-- Dashboard Summary Cards & Charts -->
+    <div class="row mb-4">
+      <div class="col-md-3 mb-3">
+        <div class="card dashboard-card text-center">
+          <div class="card-body">
+            <h5>Total Buses</h5>
+            <h2 id="fleetTotal">0</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card dashboard-card text-center">
+          <div class="card-body">
+            <h5>Active</h5>
+            <h2 id="fleetActive">0</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card dashboard-card text-center">
+          <div class="card-body">
+            <h5>Drivers On Duty</h5>
+            <h2 id="fleetDrivers">0</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card dashboard-card text-center">
+          <div class="card-body">
+            <h5>Upcoming Expiry</h5>
+            <h2 id="fleetExpiry">0</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h6>Bus Utilization</h6>
+            <canvas id="fleetUtilizationChart" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h6>Fuel Consumption</h6>
+            <canvas id="fleetFuelChart" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Map View -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h6>Live GPS Map</h6>
+        <div id="fleetMap" style="height: 250px; background: #f3f0fa; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888;">[Map Placeholder]</div>
+      </div>
+    </div>
+    <!-- Add/Edit Fleet Form -->
+    <div class="card mb-4 animate__animated animate__fadeIn">
+      <div class="card-header">Register Bus/Driver</div>
+      <div class="card-body">
+        <form id="transportForm">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">Bus Number</label>
+              <input type="text" class="form-control" id="busNumber" placeholder="Bus Number" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Driver Name</label>
+              <input type="text" class="form-control" id="driverName" placeholder="Driver Name" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Route</label>
+              <input type="text" class="form-control" id="route" placeholder="Route" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Capacity</label>
+              <input type="number" class="form-control" id="busCapacity" placeholder="Capacity">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">License Expiry</label>
+              <input type="date" class="form-control" id="licenseExpiry">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Insurance Expiry</label>
+              <input type="date" class="form-control" id="insuranceExpiry">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Emergency Contact</label>
+              <input type="text" class="form-control" id="emergencyContact" placeholder="Contact">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">GPS Device ID</label>
+              <input type="text" class="form-control" id="gpsDeviceId" placeholder="GPS Device ID">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Vehicle Status</label>
+              <select class="form-select" id="vehicleStatus">
+                <option>Active</option>
+                <option>Maintenance</option>
+                <option>Retired</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Attachments</label>
+              <input type="file" class="form-control" id="fleetAttachments" multiple>
+            </div>
+          </div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <button class="btn btn-primary" type="submit">Register</button>
+            <button class="btn btn-outline-info" type="button" id="optimizeRouteBtn">Optimize Route</button>
+            <button class="btn btn-outline-success" type="button" id="addFuelLogBtn">Add Fuel Log</button>
+            <button class="btn btn-outline-warning" type="button" id="addIncidentBtn">Add Incident</button>
+            <button class="btn btn-outline-danger" type="button" id="sosBtn">SOS</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Fleet Table -->
+    <div class="card animate__animated animate__fadeInUp">
+      <div class="card-header">Fleet List</div>
+      <div class="card-body">
+        <table class="table table-striped" id="transportTable">
+          <thead>
+            <tr>
+              <th>Bus</th>
+              <th>Driver</th>
+              <th>Route</th>
+              <th>Status</th>
+              <th>License Expiry</th>
+              <th>Insurance Expiry</th>
+              <th>Fuel Efficiency</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Modals -->
+    <!-- Map Modal -->
+    <div class="modal fade" id="mapModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Live Map View</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body"><div id="mapModalBody">[Map Placeholder]</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Attendance/Shift Log Modal -->
+    <div class="modal fade" id="attendanceModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Driver Attendance/Shift Log</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="attendanceModalBody">[Attendance Log Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- RFID Log Modal -->
+    <div class="modal fade" id="rfidModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Student RFID/NFC Log</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="rfidModalBody">[RFID Log Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- Fuel Log Modal -->
+    <div class="modal fade" id="fuelLogModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Fuel Log</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="fuelLogModalBody">[Fuel Log Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- Incident Log Modal -->
+    <div class="modal fade" id="incidentLogModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Incident/Accident Log</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="incidentLogModalBody">[Incident Log Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- Expiry Reminder Modal -->
+    <div class="modal fade" id="expiryModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">License/Insurance Expiry</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="expiryModalBody">[Expiry Reminder Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- Utilization Report Modal -->
+    <div class="modal fade" id="utilizationModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Utilization Report</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="utilizationModalBody">[Utilization Report Placeholder]</div>
+        </div>
+      </div>
+    </div>
+    <!-- SOS Modal -->
+    <div class="modal fade" id="sosModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Emergency/SOS</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body" id="sosModalBody">[SOS Placeholder]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html> 
