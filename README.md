@@ -1,7 +1,7 @@
 # Kamanga Primary Spring Boot API
 
 This project is a property of  Kamanga Primary School.
-Live view https://theprimaryschool-1.web.app
+Live view [https://theprimaryschool-1.web.app](https://theprimaryschool-1.web.app/)
 
 ## How to Run
 1. Make sure you have Java 17+ and Maven installed.
